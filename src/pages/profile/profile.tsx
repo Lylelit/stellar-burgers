@@ -1,16 +1,16 @@
 import { ProfileUI } from '@ui-pages';
+import { selectAuth, selectUser, updateUser } from '@slices/authSlice';
+import { useDispatch, useSelector } from '@services/store';
 import { type SyntheticEvent, useEffect, useState } from 'react';
 
 export const Profile = (): React.JSX.Element => {
-  /** TODO: Взять переменную из стора */
-  const user = {
-    name: '',
-    email: '',
-  };
+  const user = useSelector(selectUser);
+  const { updateUserError } = useSelector(selectAuth);
+  const dispatch = useDispatch();
 
   const [formValue, setFormValue] = useState({
-    name: user.name,
-    email: user.email,
+    name: user?.name || '',
+    email: user?.email || '',
     password: '',
   });
 
@@ -20,7 +20,7 @@ export const Profile = (): React.JSX.Element => {
       name: user?.name || '',
       email: user?.email || '',
     }));
-  }, [user]);
+  }, [user?.name, user?.email]);
 
   const isFormChanged =
     formValue.name !== user?.name ||
@@ -29,13 +29,28 @@ export const Profile = (): React.JSX.Element => {
 
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
+    const data = {
+      name: formValue.name.trim(),
+      email: formValue.email.trim(),
+      ...(formValue.password ? { password: formValue.password } : {}),
+    };
+    void dispatch(updateUser(data))
+      .unwrap()
+      .then(({ user: updatedUser }) => {
+        setFormValue({
+          name: updatedUser.name,
+          email: updatedUser.email,
+          password: '',
+        });
+      })
+      .catch(() => undefined);
   };
 
   const handleCancel = (e: SyntheticEvent): void => {
     e.preventDefault();
     setFormValue({
-      name: user.name,
-      email: user.email,
+      name: user?.name || '',
+      email: user?.email || '',
       password: '',
     });
   };
@@ -54,6 +69,7 @@ export const Profile = (): React.JSX.Element => {
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
       handleInputChange={handleInputChange}
+      updateUserError={updateUserError || undefined}
     />
   );
 };

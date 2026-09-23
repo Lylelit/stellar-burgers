@@ -14,7 +14,7 @@ export const ForgotPasswordUI = ({
   <main className={styles.container}>
     <div className={`pt-6 ${styles.wrapCenter}`}>
       <h3 className="pb-6 text text_type_main-medium">Восстановление пароля</h3>
-      <form className={`pb-15 ${styles.form}`} name="login" onSubmit={handleSubmit}>
+      <form className={`pb-15 ${styles.form}`} name="login" autoComplete="off" onSubmit={handleSubmit}>
         <div className="pb-6">
           <Input
             type="email"
@@ -22,6 +22,7 @@ export const ForgotPasswordUI = ({
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             name="email"
+            autoComplete="off"
             error={false}
             errorText=""
             size="default"
