@@ -1,0 +1,22 @@
+.link {
+  display: block;
+  width: 100%;
+  color: #8585ad;
+  text-decoration: none;
+}
+
+.link_active {
+  color: #f2f2f3;
+}
+
+.button {
+  display: block;
+  color: #8585ad;
+  text-decoration: none;
+  background-color: unset;
+  border: none;
+}
+
+.button:hover {
+  cursor: pointer;
+}

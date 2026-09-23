@@ -1,0 +1,34 @@
+.columns {
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+}
+
+.column {
+  display: inline;
+  min-width: 50%;
+}
+
+.list {
+  display: flex;
+  flex-flow: column wrap;
+  max-height: 180px;
+  margin: 0;
+  padding-left: 0;
+  overflow: hidden;
+  list-style: none;
+}
+
+.title {
+  margin: 0;
+  text-align: left;
+}
+
+.list_item {
+  min-width: 50%;
+  text-align: left;
+}
+
+.content {
+  text-align: left;
+}

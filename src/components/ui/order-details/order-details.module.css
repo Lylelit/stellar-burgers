@@ -1,0 +1,14 @@
+.img {
+  margin: 61px 0;
+}
+
+.title {
+  text-shadow:
+    0 0 16px rgb(51 51 255 / 25%),
+    0 0 8px rgb(51 51 255 / 25%),
+    0 4px 32px rgb(51 51 255 / 50%);
+}
+
+.text {
+  color: #8585ad;
+}

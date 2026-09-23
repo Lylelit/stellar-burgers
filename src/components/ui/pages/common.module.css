@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1240px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.wrapCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 480px;
+  margin: auto;
+}
+
+.form {
+  width: 100%;
+}
+
+.form div {
+  width: 100%;
+  text-align: right;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+}
+
+.question {
+  color: #8585ad;
+}
+
+.link {
+  color: #4c4cff;
+  text-decoration: none;
+}
+
+.error {
+  color: #f00;
+  text-align: center;
+}

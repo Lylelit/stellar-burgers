@@ -1,0 +1,33 @@
+.containerMain {
+  display: flex;
+  flex-direction: column;
+  max-width: 1240px;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: hidden;
+}
+
+.titleBox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 1240px;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  width: 1240px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.columnOrders {
+  width: 608px;
+}
+
+.columnInfo {
+  width: 580px;
+  overflow: hidden auto;
+}
