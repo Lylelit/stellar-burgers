@@ -1,35 +1,47 @@
-import { resetPasswordApi } from '@api';
+import { useClearFormOnOpen } from '@hooks/use-clear-form-on-open';
 import { ResetPasswordUI } from '@ui-pages';
-import { type SyntheticEvent, useEffect, useState } from 'react';
+import {
+  clearPasswordResetErrors,
+  confirmPasswordReset,
+  selectPasswordReset,
+} from '@slices/passwordResetSlice';
+import { useDispatch, useSelector } from '@services/store';
+import { Preloader } from '@ui';
+import { type SyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const ResetPassword = (): React.JSX.Element => {
+  const dispatch = useDispatch();
+  const { resetLoading, resetError } = useSelector(selectPasswordReset);
   const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
-  const [error, setError] = useState<Error | null>(null);
+
+  useClearFormOnOpen(() => {
+    setPassword('');
+    setToken('');
+    dispatch(clearPasswordResetErrors());
+  });
 
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
 
-    setError(null);
-    void resetPasswordApi({ password, token })
+    void dispatch(confirmPasswordReset({ password, token }))
+      .unwrap()
       .then(() => {
+        setPassword('');
+        setToken('');
         localStorage.removeItem('resetPassword');
         void navigate('/login');
       })
-      .catch((err: Error) => setError(err));
+      .catch(() => undefined);
   };
 
-  useEffect(() => {
-    if (!localStorage.getItem('resetPassword')) {
-      void navigate('/forgot-password', { replace: true });
-    }
-  }, [navigate]);
+  if (resetLoading) return <Preloader />;
 
   return (
     <ResetPasswordUI
-      errorText={error?.message}
+      errorText={resetError || undefined}
       password={password}
       token={token}
       setPassword={setPassword}
